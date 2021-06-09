@@ -1,0 +1,30 @@
+{
+  "name": "whatappel3allaba",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13"
+  },
+  "devDependencies": {
+    "jest": "^27.0.4",
+    "supertest": "^6.1.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedSolimann/Messenger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MohamedSolimann/Messenger/issues"
+  },
+  "homepage": "https://github.com/MohamedSolimann/Messenger#readme"
+}
