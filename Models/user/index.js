@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const createNewUser = async (request) => {
   const response = await request.post("/users").send({
@@ -7,8 +8,23 @@ const createNewUser = async (request) => {
     password: "mohamedd",
     mobile: 12345678910,
   });
-  console.log(typeof response.body.newUser._id);
   return response.body.newUser;
 };
 
-module.exports = { createNewUser };
+const updatedUserObject = (reqBody) => {
+  let updateUserdObject = {};
+  let userObject = reqBody;
+  let encryptedPassword;
+  for (let info in userObject) {
+    if (userObject[info] !== null) {
+      if (info === "password") {
+        encryptedPassword = bcrypt.hashSync(userObject[info], 8);
+        updateUserdObject[info] = encryptedPassword;
+      } else {
+        updateUserdObject[info] = userObject[info];
+      }
+    }
+  }
+  return updateUserdObject;
+};
+module.exports = { createNewUser, updatedUserObject };

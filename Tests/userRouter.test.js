@@ -61,7 +61,6 @@ describe("Read end point test cases", () => {
     let newUserId = newUser._id;
     const response = await request.get("/users/" + newUserId);
 
-    console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.user._id).toBe(newUserId);
     expect(response.body.user.username).toBe(newUser.username);
@@ -71,5 +70,39 @@ describe("Read end point test cases", () => {
     const response = await request.get("/users/123");
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Invalid user id!");
+  });
+});
+
+describe("Updated end point test cases", () => {
+  it("Suppose to update  all user info", async () => {
+    const newUser = await createNewUser(request);
+    let newUserId = newUser._id;
+    const response = await request.put("/users/" + newUserId).send({
+      username: "asdf",
+      mobile: 12312883121,
+    });
+    expect(response.status).toBe(201);
+    expect(response.body.user.username).toBe("asdf");
+    expect(response.body.user.mobile).toBe(12312883121);
+  });
+  it("Suppose to update user username", async () => {
+    const newUser = await createNewUser(request);
+    let newUserId = newUser._id;
+    const response = await request.put("/users/" + newUserId).send({
+      username: "asdf",
+    });
+    expect(response.status).toBe(201);
+    expect(response.body.user.username).toBe("asdf");
+    expect(response.body.user.mobile).toBe(12345678910);
+  });
+  it("Suppose to update user mobile", async () => {
+    const newUser = await createNewUser(request);
+    let newUserId = newUser._id;
+    const response = await request.put("/users/" + newUserId).send({
+      mobile: 12312883121,
+    });
+    expect(response.status).toBe(201);
+    expect(response.body.user.username).toBe("mohamed");
+    expect(response.body.user.mobile).toBe(12312883121);
   });
 });

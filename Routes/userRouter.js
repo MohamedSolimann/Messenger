@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const userModel = require("../Models/user/schema");
+const { updatedUserObject } = require("../Models/user/index");
 const bcrypt = require("bcrypt");
 const { userValidation } = require("../Models/user/userValidation");
-const mongoose = require("mongoose");
 
 router.post(
   "/",
@@ -27,8 +28,8 @@ router.post(
   }
 );
 
-router.get("/:id", async (req, res) => {
-  let userId = req.params.id;
+router.get("/:userId", async (req, res) => {
+  let userId = req.params.userId;
   try {
     let user = await userModel.findById(userId);
     if (user) {
@@ -45,4 +46,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.put("/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    let updatedUser = await updatedUserObject(req.body);
+    let user = await userModel.findOneAndUpdate(
+      { _id: userId },
+      { $set: updatedUser },
+      { new: true, useFindAndModify: false }
+    );
+    res.status(201).json({ message: "Success", user });
+  } catch (error) {
+    res.status(500).json({ message: "Error" });
+  }
+});
 module.exports = router;
