@@ -60,4 +60,23 @@ router.put("/:userId", async (req, res) => {
     res.status(500).json({ message: "Error" });
   }
 });
+
+router.delete("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    let user = await userModel.findById(userId);
+    if (user) {
+      let deletedUser = await userModel.findOneAndDelete({ _id: userId });
+      res.status(200).json({ message: "Success", deletedUser });
+    } else {
+      res.status(400).json({ message: "User not found!" });
+    }
+  } catch (error) {
+    if (error.kind === "ObjectId") {
+      res.status(400).json({ message: "Invalid user id!" });
+    } else {
+      res.status(500).json({ message: "Server error", error });
+    }
+  }
+});
 module.exports = router;

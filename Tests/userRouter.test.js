@@ -106,3 +106,20 @@ describe("Updated end point test cases", () => {
     expect(response.body.user.mobile).toBe(12312883121);
   });
 });
+
+describe("Delete end point test cases", () => {
+  it("Suppose to delete user by id", async () => {
+    const newUser = await createNewUser(request);
+    let newUserId = newUser._id;
+    const res = await request.delete("/users/" + newUserId);
+    const response = await request.get("/users/" + newUserId);
+    expect(res.status).toBe(200);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("User not found!");
+  });
+  it("Suppose to get user not found", async () => {
+    const response = await request.get("/users/123");
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Invalid user id!");
+  });
+});
