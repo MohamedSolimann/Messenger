@@ -3,6 +3,7 @@ const supertest = require("supertest");
 const request = supertest(app);
 const mongoose = require("mongoose");
 const { createNewUser } = require("../Models/user/index");
+const { testDbSetUp } = require("../Tests/testDBSetup");
 
 describe("Create end point test cases", () => {
   it("Suppose to Create a new user", async () => {
@@ -123,3 +124,5 @@ describe("Delete end point test cases", () => {
     expect(response.body.message).toBe("Invalid user id!");
   });
 });
+
+testDbSetUp();
