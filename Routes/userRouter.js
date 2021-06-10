@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const userModel = require("../Models/user/schema");
 const { updatedUserObject } = require("../Models/user/index");
-const bcrypt = require("bcrypt");
 const { userValidation } = require("../Models/user/userValidation");
 
 router.post(
@@ -57,7 +58,7 @@ router.put("/:userId", async (req, res) => {
     );
     res.status(201).json({ message: "Success", user });
   } catch (error) {
-    res.status(500).json({ message: "Error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -77,6 +78,29 @@ router.delete("/:userId", async (req, res) => {
     } else {
       res.status(500).json({ message: "Server error", error });
     }
+  }
+});
+
+router.post("/signin", async (req, res) => {
+  const { mobile, password } = req.body;
+  try {
+    let user = await userModel.findOne({ mobile: mobile }).lean();
+    if (user) {
+      let validPassword = bcrypt.compareSync(password, user.password);
+      if (validPassword) {
+        let token = jwt.sign({ id: user._id }, "secret");
+        res.cookie("Authorization", token);
+        res.status(201).json({ message: "Success" });
+      } else {
+        res
+          .status(400)
+          .json({ message: "Incorrect password, please try again!" });
+      }
+    } else {
+      res.status(400).json({ message: "Incorrect mobile, please try again!" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 module.exports = router;
