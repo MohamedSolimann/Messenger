@@ -2,6 +2,7 @@ const app = require("../index");
 const supertest = require("supertest");
 const request = supertest(app);
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const { createNewUser } = require("../Models/user/index");
 const { testDbSetUp } = require("../Tests/testDBSetup");
 
@@ -124,5 +125,35 @@ describe("Delete end point test cases", () => {
     expect(response.body.message).toBe("Invalid user id!");
   });
 });
-
+describe("SignIn end point test cases", () => {
+  it("Suppose to signin a user", async () => {
+    const newUser = await createNewUser(request);
+    const response = await request.post("/users/signin").send({
+      mobile: 12345678910,
+      password: "mohamedd",
+    });
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Success");
+    expect(response.body.user.username).toBe(newUser.username);
+    expect(response.body.user.mobile).toBe(newUser.mobile);
+  });
+  it("Suppose to get mobile incorrect ", async () => {
+    const newUser = await createNewUser(request);
+    const response = await request.post("/users/signin").send({
+      mobile: 12121231111,
+      password: "mohamedd",
+    });
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Incorrect mobile, please try again!");
+  });
+  it("Suppose to get password incorrect ", async () => {
+    const newUser = await createNewUser(request);
+    const response = await request.post("/users/signin").send({
+      mobile: newUser.mobile,
+      password: "asdf",
+    });
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Incorrect password, please try again!");
+  });
+});
 testDbSetUp();

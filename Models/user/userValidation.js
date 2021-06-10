@@ -27,7 +27,8 @@ module.exports = {
       }
     },
     passwordValidation: function (req, res, next) {
-      if (String(req.body.password).length < 8) {
+      req.body.password = String(req.body.password);
+      if (req.body.password.length < 8) {
         res.status(400).json({
           message: "Error",
           error: "Password must be 8 characters or more!",

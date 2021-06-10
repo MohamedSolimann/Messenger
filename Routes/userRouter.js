@@ -81,7 +81,7 @@ router.delete("/:userId", async (req, res) => {
   }
 });
 
-router.post("/signin", async (req, res) => {
+router.post("/signin", userValidation.mobileValitdation, async (req, res) => {
   const { mobile, password } = req.body;
   try {
     let user = await userModel.findOne({ mobile: mobile }).lean();
@@ -90,7 +90,7 @@ router.post("/signin", async (req, res) => {
       if (validPassword) {
         let token = jwt.sign({ id: user._id }, "secret");
         res.cookie("Authorization", token);
-        res.status(201).json({ message: "Success" });
+        res.status(200).json({ message: "Success", user });
       } else {
         res
           .status(400)
