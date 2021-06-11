@@ -1,0 +1,11 @@
+{
+  "name": "default",
+  "server": {
+    "port": "8080"
+  },
+  "db": {
+    "name": "messenger",
+    "host": "localhost",
+    "port": "27017"
+  }
+}
