@@ -1,1 +1,52 @@
-<p>sign-in works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="formContainer">
+        <div class="form">
+          <label for="mobile">Mobile Number</label>
+          <input
+            type="text"
+            [(ngModel)]="mobile"
+            id="mobile"
+            required
+            #Mobile="ngModel"
+          />
+          <p class="error" *ngIf="Mobile.invalid && Mobile.touched">
+            Mobile Number is Required.
+          </p>
+        </div>
+        <div class="form">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            [(ngModel)]="password"
+            id="password"
+            required
+            #Password="ngModel"
+          />
+          <p class="error" *ngIf="Password.invalid && Password.touched">
+            Password is Required.
+          </p>
+        </div>
+
+        <div class="form">
+          <button (click)="handleSignIn()">SignIn</button>
+          <p
+            style="color: blue"
+            [routerLink]="['/signup']"
+            routerLinkActive="router-link-active"
+          >
+            SignUp
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

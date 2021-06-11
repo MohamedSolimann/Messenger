@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignUpBackendCallsSerivce } from './service/backendCalls.service';
 import { NavigationService } from './service/navigation.service';
+import { res } from '../data.models';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,9 +27,4 @@ export class SignUpComponent {
       }
     });
   }
-}
-
-class res {
-  public message;
-  public data;
 }
