@@ -1,4 +1,5 @@
 export class res {
   public message;
-  public data;
+  public userId;
+  public user;
 }

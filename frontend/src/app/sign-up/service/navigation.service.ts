@@ -10,4 +10,7 @@ export class NavigationService {
   navigateTo(url) {
     this.myRouter.navigateByUrl(url);
   }
+  navigateToWithData(url, data) {
+    this.myRouter.navigate([url, data]);
+  }
 }

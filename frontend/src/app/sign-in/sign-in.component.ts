@@ -21,10 +21,9 @@ export class SignInComponent implements OnInit {
   handleSignIn() {
     const { mobile, password } = this;
     let data = { mobile, password };
-    debugger;
     this.myBackend.SignIn(data).subscribe((response: res) => {
       if (response.message === 'Success') {
-        this.myNavigation.navigateTo('/main');
+        this.myNavigation.navigateToWithData('/main', response.userId);
       }
     });
   }

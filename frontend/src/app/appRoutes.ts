@@ -21,6 +21,10 @@ export default [
     component: MainPageComponent,
   },
   {
+    path: 'main/:id',
+    component: MainPageComponent,
+  },
+  {
     path: 'error',
     component: ErrorComponent,
   },

@@ -12,4 +12,9 @@ export class SignInBackendCallsSerivce {
       withCredentials: true,
     });
   }
+  getUser(data) {
+    return this.myHttp.get(`http://localhost:8080/users/${data}`, {
+      withCredentials: true,
+    });
+  }
 }
