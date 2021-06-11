@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="formContainer">
+        <div class="form">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            placeholder="example@example.com"
+            id="email"
+            required
+            #Email="ngModel"
+          />
+          <p class="error" *ngIf="Email.invalid && Email.touched">
+            Email is Required.
+          </p>
+          <p class="error" *ngIf="Email.errors?.email && Email.touched">
+            Email Invalid
+          </p>
+        </div>
+        <div class="form">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            [(ngModel)]="password"
+            id="password"
+            required
+            #Password="ngModel"
+          />
+          <p class="error" *ngIf="Password.invalid && Password.touched">
+            Password is Required.
+          </p>
+        </div>
+        <div class="form">
+          <label for="mobileNumber">Mobile Number</label>
+          <input
+            type="text"
+            [(ngModel)]="mobileNumber"
+            id="mobileNumber"
+            required
+            #Mobile="ngModel"
+          />
+          <p class="error" *ngIf="Mobile.invalid && Mobile.touched">
+            Mobile Number is Required.
+          </p>
+        </div>
+        <div class="form">
+          <button [disabled]="Email.errors || Password.errors || Mobile.errors">
+            SignUp
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
