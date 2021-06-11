@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ErrorComponent } from './error/error.component';
+import { RouterModule } from '@angular/router';
+import appRoutes from './appRoutes';
 
 @NgModule({
   declarations: [
@@ -15,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     SignInComponent,
     SignUpComponent,
     MainPageComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +27,8 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent],

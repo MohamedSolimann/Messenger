@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.formContainer {
+  border: lightgray 1px solid;
+  border-radius: 3px;
+  width: 20%;
+  height: 50%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20%;
+}
+input {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+.form {
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

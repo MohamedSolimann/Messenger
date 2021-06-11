@@ -10,20 +10,16 @@
     <div class="container">
       <div class="formContainer">
         <div class="form">
-          <label for="email">Email</label>
+          <label for="username">UserName</label>
           <input
-            type="email"
-            [(ngModel)]="email"
-            placeholder="example@example.com"
-            id="email"
+            type="username"
+            [(ngModel)]="username"
+            id="username"
             required
-            #Email="ngModel"
+            #UserName="ngModel"
           />
-          <p class="error" *ngIf="Email.invalid && Email.touched">
-            Email is Required.
-          </p>
-          <p class="error" *ngIf="Email.errors?.email && Email.touched">
-            Email Invalid
+          <p class="error" *ngIf="UserName.invalid && UserName.touched">
+            UserName is Required.
           </p>
         </div>
         <div class="form">
@@ -40,11 +36,11 @@
           </p>
         </div>
         <div class="form">
-          <label for="mobileNumber">Mobile Number</label>
+          <label for="mobile">Mobile Number</label>
           <input
             type="text"
-            [(ngModel)]="mobileNumber"
-            id="mobileNumber"
+            [(ngModel)]="mobile"
+            id="mobile"
             required
             #Mobile="ngModel"
           />
@@ -53,9 +49,14 @@
           </p>
         </div>
         <div class="form">
-          <button [disabled]="Email.errors || Password.errors || Mobile.errors">
-            SignUp
-          </button>
+          <button (click)="handleSignUp()">SignUp</button>
+          <p
+            style="color: blue"
+            [routerLink]="['/signin']"
+            routerLinkActive="router-link-active"
+          >
+            SignIn
+          </p>
         </div>
       </div>
     </div>

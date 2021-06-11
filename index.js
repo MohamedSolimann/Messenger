@@ -1,14 +1,20 @@
 const express = require("express");
 const app = express();
-const userRoutes = require("./Routes/userRouter");
 const config = require("config");
+const cors = require("cors");
 const mongoose = require("mongoose");
+const userRoutes = require("./Routes/userRouter");
 
 app.get("/", (req, res) => {
   res.send("hi");
 });
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 app.use("/users", userRoutes);
 
 mongoose.connect(
