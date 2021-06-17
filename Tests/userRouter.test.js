@@ -26,7 +26,7 @@ describe("Create end point test cases", () => {
       mobile: "12345678910",
     });
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe("Mobile must be a Number!");
+    expect(response.body.message).toBe("Mobile must be a Number");
   });
   it("Suppose to get mobile validation error in length", async () => {
     const response = await request.post("/users").send({
@@ -35,7 +35,7 @@ describe("Create end point test cases", () => {
       mobile: 123,
     });
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe("Mobile must be 11 characters");
+    expect(response.body.message).toBe("Mobile must be 11 digits");
   });
   it("Suppose to get mobile validation error in type and length", async () => {
     const response = await request.post("/users").send({
@@ -44,7 +44,9 @@ describe("Create end point test cases", () => {
       mobile: "123123",
     });
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Error in type and length of Mobile!");
+    expect(response.body.message).toBe(
+      "Mobile must be a Number and 11 digits!"
+    );
   });
   it("Suppose to get password validation error", async () => {
     const response = await request.post("/users").send({
@@ -134,8 +136,7 @@ describe("SignIn end point test cases", () => {
     });
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Success");
-    expect(response.body.user.username).toBe(newUser.username);
-    expect(response.body.user.mobile).toBe(newUser.mobile);
+    expect(response.body.userId).toBe(newUser._id);
   });
   it("Suppose to get mobile incorrect ", async () => {
     const newUser = await createNewUser(request);

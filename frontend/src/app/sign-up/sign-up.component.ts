@@ -15,7 +15,7 @@ export class SignUpComponent {
   ) {}
   public username = 'mohamed';
   public password = 'mohamedd';
-  public mobile = 12312312312;
+  public mobile: number = 12312312312;
 
   handleSignUp() {
     const { username, password, mobile } = this;

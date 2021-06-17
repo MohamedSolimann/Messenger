@@ -13,4 +13,9 @@ export class NavigationService {
   navigateToWithData(url, data) {
     this.myRouter.navigate([url, data]);
   }
+  refreshPage(url) {
+    this.myRouter.navigateByUrl('/').then(() => {
+      this.navigateTo(url);
+    });
+  }
 }

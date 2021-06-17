@@ -17,6 +17,9 @@ var userSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  contacts: {
+    type: Array,
+  },
 });
 
 //Export the model

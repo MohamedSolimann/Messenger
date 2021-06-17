@@ -12,6 +12,11 @@ export class SignInBackendCallsSerivce {
       withCredentials: true,
     });
   }
+  SignOut() {
+    return this.myHttp.post('http://localhost:8080/users/logout', {
+      withCredentials: true,
+    });
+  }
   getUser(data) {
     return this.myHttp.get(`http://localhost:8080/users/${data}`, {
       withCredentials: true,

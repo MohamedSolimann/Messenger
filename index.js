@@ -4,6 +4,8 @@ const config = require("config");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./Routes/userRouter");
+const contactsRouter = require("./Routes/contactsRouter");
+const messageRouter = require("./Routes/messageRouter");
 
 app.get("/", (req, res) => {
   res.send("hi");
@@ -13,9 +15,12 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:4200",
+    credentials: true,
   })
 );
 app.use("/users", userRoutes);
+app.use("/contacts", contactsRouter);
+app.use("/message", messageRouter);
 
 mongoose.connect(
   `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`,
