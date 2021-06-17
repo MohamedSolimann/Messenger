@@ -20,7 +20,7 @@ app.use(
 );
 app.use("/users", userRoutes);
 app.use("/contacts", contactsRouter);
-app.use("/message", messageRouter);
+app.use("/messages", messageRouter);
 
 mongoose.connect(
   `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`,

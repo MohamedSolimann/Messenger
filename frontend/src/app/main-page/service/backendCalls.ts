@@ -14,7 +14,7 @@ export class BackenCallsService {
     });
   }
   addMessage(data) {
-    return this.myHttp.post('http://localhost:8080/contacts/', data, {
+    return this.myHttp.post('http://localhost:8080/messages/', data, {
       headers: { 'Content-Type': 'Application/JSOn' },
       withCredentials: true,
     });

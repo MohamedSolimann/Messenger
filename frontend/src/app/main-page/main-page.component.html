@@ -27,7 +27,9 @@
 
           <p
             [(ngModel)]="contact.username"
-            (click)="getContactId(contact.username)"
+            [(ngModel)]="contact._id"
+            (click)="getContactUsername(contact.username)"
+            (click)="getContactId(contact._id)"
             *ngFor="let contact of userContacts"
           >
             {{ contact.username }}
@@ -36,8 +38,8 @@
         <div class="border identation col-md-8">chatting history</div>
         <div class="col-md-4"></div>
         <div class="border col-md-8">
-          <input type="text" />
-          <Button>Send</Button>
+          <input [(ngModel)]="messageBody" type="text" />
+          <Button (click)="addMessage()">Send</Button>
         </div>
       </div>
       <button (click)="signOut()">SignOut</button>

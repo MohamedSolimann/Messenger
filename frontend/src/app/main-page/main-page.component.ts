@@ -27,6 +27,8 @@ export class MainPageComponent {
   public moblieNumberToBeAdded: Number;
   public responseMessage;
   public selectedContactUsername;
+  public selectedContactId;
+  public messageBody;
 
   getUserId() {
     this.userId = this.myAcitvatedRouter.snapshot.params.id;
@@ -54,7 +56,22 @@ export class MainPageComponent {
       }
     });
   }
-  getContactId(contactUsername) {
+  getContactId(contactId) {
+    this.selectedContactId = contactId;
+  }
+  getContactUsername(contactUsername) {
     this.selectedContactUsername = contactUsername;
+  }
+  addMessage() {
+    const { userId, messageBody, selectedContactId } = this;
+    debugger;
+    const data = {
+      senderId: userId,
+      recieverId: selectedContactId,
+      body: messageBody,
+    };
+    this.myBDCalls.addMessage(data).subscribe((response: res) => {
+      debugger;
+    });
   }
 }
