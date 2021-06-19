@@ -17,7 +17,6 @@ export class MainPageComponent {
     public myBDCalls: BackenCallsService,
     public myNavigation: NavigationService
   ) {
-    devicePixelRatio;
     this.getUserId();
   }
 
@@ -29,6 +28,7 @@ export class MainPageComponent {
   public selectedContactUsername;
   public selectedContactId;
   public messageBody;
+  public chatHistory;
 
   getUserId() {
     this.userId = this.myAcitvatedRouter.snapshot.params.id;
@@ -38,12 +38,10 @@ export class MainPageComponent {
     });
   }
   addContact() {
-    debugger;
     const { userId, moblieNumberToBeAdded } = this;
     const data = { mobile: moblieNumberToBeAdded, userId };
     this.myBDCalls.addContact(data).subscribe((response: res) => {
       this.user = response.updatedUser;
-      debugger;
       this.responseMessage = response.message;
       this.myNavigation.refreshPage(`/main/${this.user._id}`);
     });
@@ -58,20 +56,28 @@ export class MainPageComponent {
   }
   getContactId(contactId) {
     this.selectedContactId = contactId;
+    this.getChatHistory();
   }
   getContactUsername(contactUsername) {
     this.selectedContactUsername = contactUsername;
   }
   addMessage() {
     const { userId, messageBody, selectedContactId } = this;
-    debugger;
     const data = {
       senderId: userId,
       recieverId: selectedContactId,
       body: messageBody,
     };
-    this.myBDCalls.addMessage(data).subscribe((response: res) => {
-      debugger;
+    this.myBDCalls.addMessage(data).subscribe((response: res) => {});
+  }
+  getChatHistory() {
+    const { userId, selectedContactId } = this;
+    const data = {
+      senderId: userId,
+      recieverId: selectedContactId,
+    };
+    this.myBDCalls.chatHistory(data).subscribe((response: res) => {
+      this.chatHistory = response.chatHistory;
     });
   }
 }

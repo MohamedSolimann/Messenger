@@ -18,5 +18,14 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Error" });
   }
 });
+router.post("/chathistory", async (req, res) => {
+  const { senderId, recieverId } = req.body;
+  try {
+    let chatHistory = await messageModel.find({ senderId, recieverId });
+    res.status(200).json({ message: "Success", chatHistory });
+  } catch (error) {
+    res.status(500).json({ message: "Error" });
+  }
+});
 
 module.exports = router;

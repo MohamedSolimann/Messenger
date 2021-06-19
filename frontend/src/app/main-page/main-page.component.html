@@ -35,7 +35,11 @@
             {{ contact.username }}
           </p>
         </div>
-        <div class="border identation col-md-8">chatting history</div>
+        <div class="border identation col-md-8">
+          <p class="messageToggler" *ngFor="let message of chatHistory">
+            {{ message.body }}
+          </p>
+        </div>
         <div class="col-md-4"></div>
         <div class="border col-md-8">
           <input [(ngModel)]="messageBody" type="text" />

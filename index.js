@@ -3,6 +3,7 @@ const app = express();
 const config = require("config");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const socket = require("socket.io");
 const userRoutes = require("./Routes/userRouter");
 const contactsRouter = require("./Routes/contactsRouter");
 const messageRouter = require("./Routes/messageRouter");
@@ -27,10 +28,16 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
+const server = app.listen(config.server.port, () => {
+  console.log("up and running ...");
+});
 db.once("open", () => {
-  app.listen(config.server.port, () => {
-    console.log("up and running ...");
-  });
+  server;
 });
 
+const io = socket(server);
+
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
+});
 module.exports = app;

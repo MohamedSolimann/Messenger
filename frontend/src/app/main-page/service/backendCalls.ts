@@ -19,4 +19,14 @@ export class BackenCallsService {
       withCredentials: true,
     });
   }
+  chatHistory(data) {
+    return this.myHttp.post(
+      'http://localhost:8080/messages/chathistory',
+      data,
+      {
+        headers: { 'Content-Type': 'Application/JSOn' },
+        withCredentials: true,
+      }
+    );
+  }
 }

@@ -4,4 +4,5 @@ export class res {
   public user;
   public updatedUser;
   public error;
+  public chatHistory;
 }
