@@ -4,7 +4,8 @@ const config = require("config");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
-const userRoutes = require("./Routes/userRouter");
+const userRoutes = require("./Routes/user/userRouter");
+const userAuth = require("./Routes/user/userAuthenticationRouter");
 const contactsRouter = require("./Routes/contactsRouter");
 const messageRouter = require("./Routes/messageRouter");
 
@@ -20,6 +21,7 @@ app.use(
   })
 );
 app.use("/users", userRoutes);
+app.use("/userAuth", userAuth);
 app.use("/contacts", contactsRouter);
 app.use("/messages", messageRouter);
 

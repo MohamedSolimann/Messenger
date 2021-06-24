@@ -3,9 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const userModel = require("../Models/user/schema");
-const { updatedUserObject } = require("../Models/user/index");
-const { userValidation } = require("../Models/user/userValidation");
+const userModel = require("../../Models/user/schema");
+const { updatedUserObject } = require("../../Models/user/index");
+const { userValidation } = require("../../Models/user/userValidation");
 
 router.post(
   "/",
@@ -81,35 +81,4 @@ router.delete("/:userId", async (req, res) => {
   }
 });
 
-router.post("/signin", userValidation.mobileValitdation, async (req, res) => {
-  const { mobile, password } = req.body;
-  try {
-    let user = await userModel.findOne({ mobile }).lean();
-    if (user) {
-      let validPassword = bcrypt.compareSync(password, user.password);
-      if (validPassword) {
-        let token = jwt.sign({ id: user._id }, "secret");
-        res.cookie("Authorization", token, { domain: "localhost" });
-        res.status(200).json({ message: "Success", userId: user._id });
-      } else {
-        res
-          .status(400)
-          .json({ message: "Incorrect password, please try again!" });
-      }
-    } else {
-      res.status(400).json({ message: "Incorrect mobile, please try again!" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-router.post("/logout", async (req, res) => {
-  try {
-    res.clearCookie("Authorization", { domain: "localhost", path: "" });
-    res.status(200).json({ message: "Success" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
 module.exports = router;
